@@ -84,7 +84,7 @@ kbd { font-family: var(--font-mono); font-size: 0.7rem; border: 1px solid var(--
 /* hero */
 .hero { position: relative; padding-block: clamp(40px, 7vw, 88px) 48px; }
 #dots { position: absolute; top: 0; left: 50%; width: 100vw; height: 100%; transform: translateX(-50%); z-index: -1; pointer-events: none; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(480px circle at var(--mx, 70%) var(--my, 35%), var(--glow), transparent 70%); }
+.hero::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); z-index: -1; pointer-events: none; background: radial-gradient(480px circle at var(--mx, 70%) var(--my, 35%), var(--glow), transparent 70%); }
 .hero-copy { display: grid; gap: 26px; justify-items: center; text-align: center; padding-block: clamp(40px, 8vw, 96px) clamp(20px, 3vw, 40px); }
 .hero .name { font-size: clamp(3rem, 11vw, 8rem); line-height: 0.98; letter-spacing: -0.03em; }
 .hero .name .full { color: var(--accent); }
@@ -678,7 +678,8 @@ dialog.cmd::backdrop { background: rgba(5, 8, 16, .6); backdrop-filter: blur(4px
 
   /* hero glow follows pointer */
   var hero = $('#hero');
-  hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); hero.style.setProperty('--mx', (e.clientX - r.left) + 'px'); hero.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  /* track the pointer across the full page width, not just the centred content column */
+  document.addEventListener('pointermove', function (e) { var r = $('#dots').getBoundingClientRect(); if (e.clientY < r.top || e.clientY > r.bottom) return; hero.style.setProperty('--mx', (e.clientX - r.left) + 'px'); hero.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
 
   /* dot field: on every load, dots fly in and form "SP"; all dots lean away from the cursor */
   (function () {
@@ -732,8 +733,8 @@ dialog.cmd::backdrop { background: rgba(5, 8, 16, .6); backdrop-filter: blur(4px
       return true;
     }
     function tick(now) { if (draw(now)) anim = requestAnimationFrame(tick); else { t0 = -1e9; draw(); } }
-    hero.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; cancelAnimationFrame(raf); raf = requestAnimationFrame(function (n) { draw(n); }); });
-    hero.addEventListener('pointerleave', function () { mx = my = -999; draw(); });
+    document.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); if (e.clientY < r.top || e.clientY > r.bottom) { if (mx > -999) { mx = my = -999; draw(); } return; } mx = e.clientX - r.left; my = e.clientY - r.top; cancelAnimationFrame(raf); raf = requestAnimationFrame(function (n) { draw(n); }); });
+    document.addEventListener('pointerleave', function () { mx = my = -999; draw(); });
     var rz; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { size(false); }, 150); });
     themeBtn.addEventListener('click', function () { setTimeout(function () { size(false); }, 0); });
     size(true);
