@@ -35,14 +35,6 @@
   --step-3: clamp(2rem, 4.6vw, 3.2rem);
   --step-4: clamp(2.5rem, 6.8vw, 5rem);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0e1013; --bg-2: #15181d; --surface: #171b20; --ink: #eceef0; --muted: #98a1aa;
-    --line: #272c33; --accent: #ff7a45; --accent-ink: #160803; --sky: #7cb6ff; --rose: #ff7a8a; --good: #4ad49b;
-    --glow: rgba(255, 122, 69, 0.13); --dot: rgba(236, 238, 240, 0.16);
-    color-scheme: dark;
-  }
-}
 :root[data-theme="dark"] {
   --bg: #0e1013; --bg-2: #15181d; --surface: #171b20; --ink: #eceef0; --muted: #98a1aa;
   --line: #272c33; --accent: #ff7a45; --accent-ink: #160803; --sky: #7cb6ff; --rose: #ff7a8a; --good: #4ad49b;
@@ -667,7 +659,7 @@ dialog.cmd::backdrop { background: rgba(5, 8, 16, .6); backdrop-filter: blur(4px
 
   /* theme */
   var root = document.documentElement, themeBtn = $('#theme-toggle');
-  function theme() { var t = root.getAttribute('data-theme'); if (t) return t; return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  function theme() { return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
   function themeLabel() { themeBtn.textContent = theme() === 'dark' ? 'Light' : 'Dark'; }
   try { var saved = localStorage.getItem('sp-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
   themeLabel();
