@@ -344,50 +344,6 @@ dialog.cmd::backdrop { background: rgba(5, 8, 16, .6); backdrop-filter: blur(4px
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal.pending { transform: none; }
 }
-
-/* section identity: numbered labels, and a soft full-width band behind case studies */
-.sec-num { display: inline-flex; align-items: center; gap: 10px; }
-.sec-num i { font-style: normal; color: var(--accent); }
-.sec-num::after { content: ""; width: 36px; height: 1px; background: var(--line); }
-section.block.band { position: relative; padding-bottom: clamp(52px, 7vw, 88px); margin-top: clamp(52px, 7vw, 88px); }
-section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); z-index: -1; background: var(--bg-2); border-block: 1px solid var(--line); }
-
-/* about + career path */
-.about2 { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-@media (max-width: 900px) { .about2 { grid-template-columns: minmax(0, 1fr); } }
-.about-intro { display: grid; gap: 16px; font-size: 1.06rem; color: var(--muted); position: sticky; top: 90px; }
-@media (max-width: 900px) { .about-intro { position: static; } }
-.about-intro b { color: var(--ink); font-weight: 500; }
-.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.facts span { font-size: 0.85rem; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
-.about-intro .hint { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: .04em; }
-.path2 { list-style: none; margin: 0; padding: 0 0 0 26px; position: relative; display: grid; gap: 6px; }
-.path2::before { content: ""; position: absolute; left: 7px; top: 14px; bottom: 14px; width: 2px; background: var(--line); }
-.path2::after { content: ""; position: absolute; left: 7px; top: 14px; width: 2px; height: var(--fill, 0px); background: var(--accent); transition: height .5s cubic-bezier(.2,.8,.2,1); }
-.stop { position: relative; }
-.stop::before { content: ""; position: absolute; left: -24px; top: 20px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); z-index: 1; transition: border-color .3s, background .3s, transform .3s; }
-.stop.on::before, .stop.past::before { border-color: var(--accent); }
-.stop.on::before { background: var(--accent); transform: scale(1.15); }
-.stop-h { width: 100%; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 14px; align-items: baseline; text-align: left; font: inherit; color: inherit; background: transparent; border: 0; border-radius: 12px; padding: 12px 14px; cursor: pointer; transition: background .2s; }
-.stop-h:hover { background: var(--surface); }
-.stop-h .when { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
-.stop-h .what { display: grid; gap: 2px; }
-.stop-h b { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; line-height: 1.2; transition: color .2s; }
-.stop-h small { color: var(--muted); font-size: 0.88rem; }
-.stop.on .stop-h b { color: var(--accent); }
-.stop-b { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2,.8,.2,1); }
-.stop-b > * { overflow: hidden; min-height: 0; }
-.stop:not(.on) .stop-b-in { padding-block: 0; opacity: 0; }
-.stop-b-in { transition: opacity .35s, padding .45s cubic-bezier(.2,.8,.2,1); }
-.stop.on .stop-b { grid-template-rows: 1fr; }
-.stop-b-in { display: grid; gap: 14px; padding: 4px 14px 18px 102px; }
-@media (max-width: 560px) { .stop-h { grid-template-columns: minmax(0, 1fr); gap: 4px; } .stop-b-in { padding-left: 14px; } }
-.stop .big { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.stop .big b { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; color: var(--ink); }
-.stop .big span { color: var(--muted); font-size: 0.9rem; }
-.stop ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--muted); }
-.stop li b { color: var(--ink); font-weight: 500; }
-.stop .btn { width: fit-content; padding: 9px 14px; font-size: 0.9rem; }
 </style>
 <style>[hidden] { display: none !important; } img { max-width: 100%; }</style>
 </head>
@@ -402,6 +358,7 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
         <li><a href="#about">About</a></li>
         <li><a href="#work">Case studies</a></li>
         <li><a href="#method">How I work</a></li>
+        <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -446,80 +403,29 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
   <div class="wrap">
     <section class="block reveal" id="about">
       <div class="sec-head">
-        <span class="label sec-num"><i>01</i>About</span>
+        <span class="label">About</span>
         <h2>Evidence first, then the roadmap.</h2>
       </div>
-      <div class="about2">
-        <div class="about-intro">
-          <p>I studied <b>Chemical Engineering at IIT (BHU)</b>, which taught me to break any system into inputs, constraints and outputs. Now I do the same with products.</p>
-          <p>My rule is simple: check the data before trusting the brief. Then build the smallest thing that proves the answer.</p>
-          <div class="facts">
-            <span><b>B.Tech, IIT (BHU)</b> 2025 · 8.88/10</span>
-            <span><b>NextLeap</b> PM Fellow</span>
-            <span><b>Based in</b> India</span>
-            <span><b>Enigma 4.0</b> Top 7 of 1,200+</span>
-          </div>
-          <p class="hint">Pick a stop on the path to see what I did there.</p>
+      <div class="about">
+        <div class="copy">
+          <p>I studied <b>Chemical Engineering at IIT (BHU)</b>, which taught me to break a system into inputs, constraints and outputs. I now apply the same habit to products.</p>
+          <p>Most recently, I spent a year at <b>Kalliope Consulting</b> on the Nation with Namo campaign. I modelled data on more than a million electors, built a prioritisation model for 1,500 booths and automated reporting with Python scrapers. Before that, I ran pricing and retention experiments as a product analyst intern at <b>Kounselo</b>.</p>
+          <p>My case studies follow one rule: check the data before trusting the brief. At Blinkit, that meant cancelling a plan to order 20% more stock. At Google Photos, it meant reading 54,000 public posts before writing a single survey question.</p>
         </div>
-        <ol class="path2" id="path2" aria-label="Career path">
-          <li class="stop" data-i="0">
-            <button type="button" class="stop-h" aria-expanded="true" aria-controls="stop-0"><span class="when">2026</span><span class="what"><b>NextLeap</b><small>Product Management Fellow</small></span></button>
-            <div class="stop-b" id="stop-0"><div class="stop-b-in">
-              <div class="big"><b>53,986</b><span>public posts mined for my graduation case</span></div>
-              <ul>
-                <li>Graduation case on <b>Google Photos</b>: why people can't find a photo they only half remember.</li>
-                <li>Built an AI discovery engine, then a <b>46-person survey</b> and <b>6 interviews</b> to test what it found.</li>
-                <li>Shipped <b>Memory Match</b>, a working MVP, with a metric tree and guardrails.</li>
-                <li>Practised the PM toolkit: PRDs, metric trees, prioritisation (MoSCoW, RICE) and go-to-market.</li>
-              </ul>
-              <button class="btn" type="button" data-open="photos">Open the Google Photos case <span class="arr">→</span></button>
-              </div>
-            </div>
-          </li>
-          <li class="stop" data-i="1">
-            <button type="button" class="stop-h" aria-expanded="false" aria-controls="stop-1"><span class="when">2025–26</span><span class="what"><b>Kalliope Consulting</b><small>Associate, Data Analytics and Strategy · Nation with Namo</small></span></button>
-            <div class="stop-b" id="stop-1"><div class="stop-b-in">
-              <div class="big"><b>1M+</b><span>electors analysed across 4 constituencies</span></div>
-              <ul>
-                <li>Modelled electoral and demographic data with SQL, Python and Excel.</li>
-                <li>Built a prioritisation model for <b>1,500 booths</b> that lifted conversion by <b>15%</b>.</li>
-                <li>Wrote Python scrapers that cut manual work by <b>70%</b> and fed live dashboards.</li>
-                <li>Ran <b>50+</b> consulting sessions. The work contributed to wins in all 4 constituencies.</li>
-              </ul>
-              </div>
-            </div>
-          </li>
-          <li class="stop" data-i="2">
-            <button type="button" class="stop-h" aria-expanded="false" aria-controls="stop-2"><span class="when">2024</span><span class="what"><b>Kounselo</b><small>Product Analyst Intern · Remote</small></span></button>
-            <div class="stop-b" id="stop-2"><div class="stop-b-in">
-              <div class="big"><b>+30%</b><span>engagement from retention experiments</span></div>
-              <ul>
-                <li>Mined PostHog event data and shipped retention experiments.</li>
-                <li>Designed micro-pricing from willingness-to-pay analysis: <b>+50%</b> revenue.</li>
-                <li>Launched a free IELTS mock-test funnel: <b>+25%</b> conversion.</li>
-                <li>Ran <b>10+</b> user interviews and turned them into roadmap priorities.</li>
-              </ul>
-              </div>
-            </div>
-          </li>
-          <li class="stop" data-i="3">
-            <button type="button" class="stop-h" aria-expanded="false" aria-controls="stop-3"><span class="when">2024</span><span class="what"><b>Axxela Research &amp; Analytics</b><small>Market Analyst Intern · Gurugram</small></span></button>
-            <div class="stop-b" id="stop-3"><div class="stop-b-in">
-              <div class="big"><b>400+</b><span>trades in 3-month Euribor futures</span></div>
-              <ul>
-                <li>Managed a <b>2.5K-lot</b> book.</li>
-                <li>Held a 1:2 risk-reward ratio and a <b>55%</b> win rate by reading Fed and ECB policy.</li>
-              </ul>
-              </div>
-            </div>
-          </li>
-        </ol>
+        <div class="idcard">
+          <div class="avatar">SP</div>
+          <div><h3 style="font-size:1.1rem">Sarthak Patidar</h3><span class="label">Product · Data · AI</span></div>
+          <div class="row"><span class="label">Education</span><span>B.Tech, IIT (BHU) Varanasi, 2025 · 8.88/10</span></div>
+          <div class="row"><span class="label">Recent</span><span>Associate, Kalliope Consulting</span></div>
+          <div class="row"><span class="label">Fellowship</span><span>NextLeap PM Fellowship</span></div>
+          <div class="row"><span class="label">Based in</span><span>India</span></div>
+        </div>
       </div>
     </section>
 
-    <section class="block band reveal" id="work">
+    <section class="block reveal" id="work">
       <div class="sec-head">
-        <span class="label sec-num"><i>02</i>Case studies</span>
+        <span class="label">Case studies</span>
         <h2>Three problems, from raw data to a decision.</h2>
         <p>Run the questions in each console, open the code and deck, or read the full case to see how I built toward the answer step by step.</p>
       </div>
@@ -598,7 +504,7 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
 
     <section class="block reveal" id="method">
       <div class="sec-head">
-        <span class="label sec-num"><i>03</i>How I work</span>
+        <span class="label">How I work</span>
         <h2>The same four steps, whatever the problem.</h2>
         <p>Pick a step to see where I used it.</p>
       </div>
@@ -618,12 +524,53 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
       </div>
     </section>
 
+    <section class="block reveal" id="experience">
+      <div class="sec-head">
+        <span class="label">Experience</span>
+        <h2>Where the work happened.</h2>
+      </div>
+      <div class="xp">
+        <details class="job" open>
+          <summary><div><h3>Kalliope Consulting · Nation with Namo</h3><div class="meta"><span class="role">Associate, Data Analytics and Strategy</span><span class="when">Jul 2025 – Jul 2026</span></div></div><span class="plus" aria-hidden="true">+</span></summary>
+          <ul>
+            <li>Analysed electoral and demographic data on <b>1M+ electors</b> across 4 assembly constituencies with SQL, Python and Excel.</li>
+            <li>Built a prioritisation model for <b>1,500 booths</b> that lifted conversion by <b>15%</b>.</li>
+            <li>Wrote Python scrapers for government sources, which cut manual work by <b>70%</b> and fed real-time dashboards.</li>
+            <li>Tracked MP and MLA performance on 8 parameters over 12 months, which improved outreach by <b>20%</b>.</li>
+            <li>Ran <b>50+</b> consulting sessions. The work contributed to wins in all 4 constituencies.</li>
+          </ul>
+        </details>
+        <details class="job">
+          <summary><div><h3>Kounselo</h3><div class="meta"><span class="role">Product Analyst Intern</span><span class="when">Jul 2024 – Sep 2024 · Remote</span></div></div><span class="plus" aria-hidden="true">+</span></summary>
+          <ul>
+            <li>Mined PostHog event data and shipped retention experiments that lifted engagement by <b>30%</b>.</li>
+            <li>Designed a micro-pricing model from willingness-to-pay analysis, which grew revenue by <b>50%</b>.</li>
+            <li>Launched a free IELTS mock-test funnel as a lead magnet, which raised conversion by <b>25%</b>.</li>
+            <li>Ran <b>10+</b> user interviews and turned them into roadmap priorities.</li>
+          </ul>
+        </details>
+        <details class="job">
+          <summary><div><h3>Axxela Research &amp; Analytics</h3><div class="meta"><span class="role">Market Analyst Intern</span><span class="when">May 2024 – Jul 2024 · Gurugram</span></div></div><span class="plus" aria-hidden="true">+</span></summary>
+          <ul>
+            <li>Placed <b>400+</b> trades in 3-month Euribor futures and managed a <b>2.5K-lot</b> book.</li>
+            <li>Held a 1:2 risk-reward ratio and a <b>55%</b> win rate by reading Fed and ECB policy.</li>
+          </ul>
+        </details>
+        <details class="job">
+          <summary><div><h3>Training and Placement Cell, IIT (BHU)</h3><div class="meta"><span class="role">Placement Coordinator</span><span class="when">May 2024 – May 2025</span></div></div><span class="plus" aria-hidden="true">+</span></summary>
+          <ul>
+            <li>Led a 3-tier team running internships and placements for <b>4,000+</b> students, with a <b>90%</b> placement rate.</li>
+            <li>Worked with <b>100+</b> recruiters across 800+ internships and 2,500+ placements.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
   </div>
 
   <section class="contact" id="contact">
     <div class="wrap">
       <div class="cta-box">
-        <span class="label sec-num"><i>04</i>Contact</span>
+        <span class="label">Contact</span>
         <h2>Got a product problem? <span class="accent">Let's talk.</span></h2>
         <p>I'm looking for APM and product analyst roles. Email or LinkedIn is the fastest way to reach me.</p>
         <div class="mail">
@@ -695,7 +642,7 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
 </dialog>
 
 <dialog class="cmd" id="cmd" aria-label="Quick menu">
-  <input id="cmd-input" type="text" placeholder="Type to jump: Blinkit, about, email…" autocomplete="off">
+  <input id="cmd-input" type="text" placeholder="Type to jump: Blinkit, experience, email…" autocomplete="off">
   <ul id="cmd-list"></ul>
 </dialog>
 
@@ -1093,7 +1040,7 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
     ['Google Photos: half-remembered photos', 'case', function () { showTab('photos'); }],
     ['Ola Saathi: commute for 100M', 'case', function () { showTab('ola'); }],
     ['How I work', 'section', function () { location.hash = '#method'; }],
-    ['Experience', 'section', function () { location.hash = '#about'; }],
+    ['Experience', 'section', function () { location.hash = '#experience'; }],
     ['Contact', 'section', function () { location.hash = '#contact'; }],
     ['Copy email', 'action', copyEmail],
     ['Switch theme', 'action', function () { themeBtn.click(); }]
@@ -1122,21 +1069,6 @@ section.block.band::before { content: ""; position: absolute; top: 0; bottom: 0;
   addEventListener('keydown', function (e) {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmd.open ? cmd.close() : (dlg.open || openCmd()); }
   });
-
-  /* career path: one stop open at a time, the rail fills down to it */
-  (function () {
-    var path = $('#path2'); if (!path) return;
-    var stops = $$('.stop', path);
-    function show(i) {
-      stops.forEach(function (st, j) { st.classList.toggle('on', j === i); st.classList.toggle('past', j < i); $('.stop-h', st).setAttribute('aria-expanded', j === i); });
-      var dot = stops[i].offsetTop + 26 - 14;
-      path.style.setProperty('--fill', Math.max(0, dot) + 'px');
-    }
-    stops.forEach(function (st, i) { $('.stop-h', st).addEventListener('click', function () { show(i); }); });
-    show(0);
-    addEventListener('resize', function () { var on = stops.findIndex(function (x) { return x.classList.contains('on'); }); show(on < 0 ? 0 : on); });
-    path.addEventListener('transitionend', function (e) { if (e.propertyName === 'grid-template-rows') { var on = stops.findIndex(function (x) { return x.classList.contains('on'); }); show(on); } });
-  })();
 })();
 </script>
 </body>
